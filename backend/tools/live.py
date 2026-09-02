@@ -130,7 +130,7 @@ def query_weather(city: str, date: str | None = None) -> dict[str, Any]:
             }
         try:
             return _weather_mcp(city, date)
-        except Exception as exc:  # noqa: BLE001 - MCP failures degrade to a tool result
+        except Exception as exc:
             return {
                 "city": city,
                 "date": date,
@@ -140,7 +140,7 @@ def query_weather(city: str, date: str | None = None) -> dict[str, Any]:
             }
     try:
         return _weather_wttr(city, date)
-    except Exception as exc:  # noqa: BLE001 - remote failures degrade to a tool result
+    except Exception as exc:
         return {
             "city": city,
             "date": date,
@@ -198,7 +198,7 @@ def query_destination_news(city: str, topic: str | None = None) -> dict[str, Any
         }
     try:
         return _news(city, topic)
-    except Exception as exc:  # noqa: BLE001 - remote failures degrade to a tool result
+    except Exception as exc:
         return {
             "city": city,
             "topic": topic,
@@ -231,7 +231,7 @@ def _visa(tool_name: str, passport_country: str, destination_country: str) -> di
                 allowed_tools=settings.orizn_mcp_enabled_tools,
             ),
         }
-    except Exception as exc:  # noqa: BLE001 - MCP failures degrade to a tool result
+    except Exception as exc:
         return {
             "source": "orizn-visa-mcp",
             "available": False,

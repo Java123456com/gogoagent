@@ -1,7 +1,7 @@
-from pathlib import Path
 import re
-from zipfile import ZipFile
+from pathlib import Path
 from xml.etree import ElementTree
+from zipfile import ZipFile
 
 from backend.config import get_settings
 from backend.infrastructure.embedding import DashScopeEmbedding, DashScopeEmbeddingError
@@ -10,7 +10,6 @@ from backend.rag.providers import (
     BailianKnowledgeError,
     BailianKnowledgeProvider,
 )
-
 
 _RESOURCE_ROOT = Path(__file__).resolve().parents[1] / "resources"
 _LEGACY_RESOURCE_ROOT = Path(__file__).resolve().parents[2] / "src" / "main" / "resources"

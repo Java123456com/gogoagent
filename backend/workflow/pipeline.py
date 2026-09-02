@@ -56,7 +56,7 @@ def rewrite_node(state):
                 f"{item.get('role', 'assistant')}: {item.get('content', '')}"
                 for item in rows if item.get("content")
             )
-        except Exception:  # noqa: BLE001 - rewrite can degrade to current text
+        except Exception:
             history = ""
     rewritten_raw = query_rewriting_agent.invoke(question, history=history)
     rewritten = _extract_rewritten_question(rewritten_raw) or question

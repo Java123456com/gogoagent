@@ -1,3 +1,5 @@
+from pydantic import BaseModel, ConfigDict, Field
+
 from backend.agents.base import BaseSubAgent
 from backend.core.request_context import apply_context_to_state, require_context
 from backend.infrastructure.llm import strong_model
@@ -7,7 +9,6 @@ from backend.tools._common import tool
 from backend.tools.interaction import UserInteractionRequired
 from backend.tools.interaction import tools as interaction_tools
 from backend.tools.memory import tools as memory_tools
-from pydantic import BaseModel, ConfigDict, Field
 
 
 class SubAgentRequest(BaseModel):

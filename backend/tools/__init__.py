@@ -1,3 +1,6 @@
+import functools
+import operator
+
 from .apikey import tools as api_key_tools
 from .booking import tools as booking_tools
 from .conflict import tools as conflict_tools
@@ -15,7 +18,7 @@ from .user_info import tools as user_info_tools
 
 
 def all_tools():
-    return sum((factory() for factory in (api_key_tools, booking_tools, conflict_tools, interaction_tools, knowledge_tools, live_tools, order_tools, plan_html_tools, planner_tools, policy_tools, reimbursement_tools, review_tools, skill_tools, user_info_tools)), [])
+    return functools.reduce(operator.iadd, (factory() for factory in (api_key_tools, booking_tools, conflict_tools, interaction_tools, knowledge_tools, live_tools, order_tools, plan_html_tools, planner_tools, policy_tools, reimbursement_tools, review_tools, skill_tools, user_info_tools)), [])
 
 
 __all__ = ["all_tools"]

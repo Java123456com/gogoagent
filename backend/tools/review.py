@@ -574,7 +574,7 @@ def _assess(
             payload.get("suggestions") or [],
             payload.get("details"),
         )
-    except Exception as exc:  # noqa: BLE001 - provider/network exceptions are not stable APIs
+    except Exception as exc:
         return _fallback_result(source, exc)
 
 
@@ -650,7 +650,7 @@ def _arbitrate(results: list[ReviewResult], previous: dict | str | None) -> Revi
             payload.get("suggestions") or [],
             payload.get("details"),
         )
-    except Exception:  # noqa: BLE001 - preserve Java's model-failure fallback
+    except Exception:
         return _fallback_arbitrate(results)
 
 

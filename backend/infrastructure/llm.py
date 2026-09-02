@@ -75,5 +75,5 @@ def invoke_text(model: BaseChatModel | None, system: str, user: str, fallback: s
         resp = model.invoke([("system", system), ("human", user)])
         content = resp.content
         return content if isinstance(content, str) else str(content)
-    except Exception:  # noqa: BLE001 - provider failures must preserve deterministic fallback
+    except Exception:
         return fallback

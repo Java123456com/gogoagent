@@ -161,7 +161,7 @@ class ItineraryPlanAgent(BaseSubAgent):
         if policy_payload is None:
             try:
                 policy_payload = travel_policy_service.get_policy(user_id, destination)
-            except Exception:  # noqa: BLE001 - optional policy lookup degrades to no policy
+            except Exception:
                 policy_payload = None
 
         weather_summary = state.get("weather_summary")
@@ -176,7 +176,7 @@ class ItineraryPlanAgent(BaseSubAgent):
                     )
                 elif weather:
                     weather_summary = str(weather)
-            except Exception:  # noqa: BLE001 - optional weather lookup degrades to no summary
+            except Exception:
                 weather_summary = None
 
         result = _invoke_tool(

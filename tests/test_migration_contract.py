@@ -1,7 +1,7 @@
 from backend.intent.router import has_multi_intent_signal
 from backend.intent.rule_matcher import IntentRuleMatcher, Verdict
-from backend.services.policy_service import is_cabin_compliant
 from backend.services.circuit_breaker import ToolCircuitBreaker
+from backend.services.policy_service import is_cabin_compliant
 
 
 def test_intent_l1_policy_query():

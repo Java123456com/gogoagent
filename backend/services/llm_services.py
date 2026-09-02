@@ -37,7 +37,7 @@ class ConversationTitleService:
             title = self.generate(question, encoded).strip()[:24]
             if title:
                 chat_service.update_title(session_id, user_id, title)
-        except Exception:  # noqa: BLE001 - title generation is deliberately best effort
+        except Exception:
             return
 
     def schedule_update(self, session_id: str, user_id: str, question: str,

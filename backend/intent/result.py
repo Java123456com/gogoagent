@@ -5,7 +5,7 @@
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
 from typing import Any
 
@@ -24,7 +24,7 @@ class Confidence(str, Enum):
     LOW = "low"
 
     @classmethod
-    def from_wire(cls, value: str | None) -> "Confidence":
+    def from_wire(cls, value: str | None) -> Confidence:
         if value is None:
             return cls.LOW
         v = value.lower()
@@ -66,7 +66,7 @@ class IntentRecognitionResult:
 
     @classmethod
     def single(cls, source: Source, category: IntentCategory, confidence: Confidence,
-               reason: str, score: float | None = None) -> "IntentRecognitionResult":
+               reason: str, score: float | None = None) -> IntentRecognitionResult:
         target = category.default_target_agent
         item = IntentItem(category, target, confidence, reason)
         return cls(source, [item], category, False, reason or "", score)

@@ -138,7 +138,7 @@ class McpClientManager:
             for stack, _ in reversed(clients):
                 try:
                     await stack.aclose()
-                except Exception as exc:  # noqa: BLE001 - best-effort shutdown
+                except Exception as exc:
                     logger.debug("MCP 会话关闭失败: %s", exc)
 
         try:

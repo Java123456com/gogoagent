@@ -32,7 +32,7 @@ class IntentCategory(Enum):
         self.description = description
 
     @classmethod
-    def from_code(cls, code: str | None) -> "IntentCategory":
+    def from_code(cls, code: str | None) -> IntentCategory:
         if not code:
             return cls.UNKNOWN
         for c in cls:

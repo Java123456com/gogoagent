@@ -72,14 +72,15 @@ class LongTermMemory:
             except Exception:
                 if not self.fallback_to_local:
                     raise
-        if self.durable:
-            # A configured remote provider is authoritative.  Store locally
+        if self.durable and (not self.provider or not provider_succeeded):
+            # A configured remote provider is authoritative. Store locally
             # only when it is disabled or the provider explicitly falls back.
-            if not self.provider or not provider_succeeded:
-                try:
-                    memory_id = agent_memory_repository.record_memory(user_id, content, memory_type, metadata)
-                except SQLAlchemyError:
-                    memory_id = None
+            try:
+                memory_id = agent_memory_repository.record_memory(
+                    user_id, content, memory_type, metadata
+                )
+            except SQLAlchemyError:
+                memory_id = None
         with self._lock:
             self._entries.setdefault(user_id, []).append({"content": content, "type": memory_type})
             self.evict(user_id)

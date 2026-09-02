@@ -46,7 +46,7 @@ class ApiKeyService:
 
             self._redis = redis.from_url(url, decode_responses=True)
             return self._redis
-        except Exception as exc:  # noqa: BLE001 - DB remains authoritative fallback
+        except Exception as exc:
             logger.warning("API Key Redis 初始化失败，降级到数据库: %s", exc)
             return None
 
@@ -68,7 +68,7 @@ class ApiKeyService:
         if client is not None:
             try:
                 encrypted = client.get(self._cache_key(config.name, user_id))
-            except Exception as exc:  # noqa: BLE001
+            except Exception as exc:
                 logger.warning("API Key Redis 读取失败，降级到数据库: %s", exc)
         row = None
         if encrypted is None:
@@ -86,13 +86,13 @@ class ApiKeyService:
                         get_settings().api_key_cache_ttl_seconds,
                         encrypted,
                     )
-                except Exception as exc:  # noqa: BLE001
+                except Exception as exc:
                     logger.warning("API Key Redis 回填失败: %s", exc)
         if not encrypted:
             return None
         try:
             plaintext = decrypt_api_key(encrypted)
-        except Exception:  # noqa: BLE001 - corrupted/rotated credentials degrade to absent
+        except Exception:
             logger.warning("用户凭证无法解密，按未配置处理: userId=%s provider=%s", user_id, config.name)
             return None
         # Transparently migrate legacy provider names and XOR ciphertext.
@@ -120,7 +120,7 @@ class ApiKeyService:
                     get_settings().api_key_cache_ttl_seconds,
                     encrypted,
                 )
-            except Exception as exc:  # noqa: BLE001
+            except Exception as exc:
                 logger.warning("API Key Redis 更新失败: %s", exc)
 
     def has(self, user_id: str, provider: str) -> bool:
@@ -135,7 +135,7 @@ class ApiKeyService:
         if client is not None:
             try:
                 client.delete(self._cache_key(config.name, user_id))
-            except Exception as exc:  # noqa: BLE001
+            except Exception as exc:
                 logger.warning("API Key Redis 删除失败: %s", exc)
         return deleted
 

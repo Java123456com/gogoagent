@@ -1,8 +1,9 @@
 import argparse
 import json
+
 from backend.infrastructure.bootstrap import bootstrap
-from backend.services.travel_service import TravelAgentService
 from backend.runtime.agent_executor import close_subagent_executor
+from backend.services.travel_service import TravelAgentService
 
 
 def main():

@@ -48,3 +48,10 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+
+[tool.ruff.lint]
+# FastAPI intentionally evaluates Depends/Header declarations in defaults.
+# Provider and tool boundaries deliberately catch broad exceptions so optional
+# integrations can degrade gracefully. Database/domain timestamps remain naive
+# because the migrated schema stores local business time without timezone data.
+ignore = ["B008", "BLE001", "DTZ001", "DTZ005", "DTZ011"]

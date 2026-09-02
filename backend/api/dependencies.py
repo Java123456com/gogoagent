@@ -1,4 +1,5 @@
 from fastapi import Depends, Header, HTTPException
+
 from backend.services.auth_service import AuthService
 
 auth_service = AuthService()

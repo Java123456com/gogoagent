@@ -51,7 +51,7 @@ def stream_agent_execution(
             if persist_user_reply:
                 chat_service.save_user_message(session_id, user_id, latest_user_text)
             _enqueue_result(queue, result, session_id, latest_user_text, interrupted_notified)
-        except Exception as exc:  # noqa: BLE001 - encode worker failures after response start
+        except Exception as exc:
             enqueue("error", mask_sensitive(str(exc)) or "Agent 执行失败")
         finally:
             queue.put(_END)

@@ -4,12 +4,12 @@
 """
 from __future__ import annotations
 
-from typing import Any
 import json
+from typing import Any
 
+from backend.infrastructure.llm import fast_model, invoke_text
 from backend.infrastructure.repositories import preference_repository
 from backend.memory.long_term import long_term_memory
-from backend.infrastructure.llm import fast_model, invoke_text
 
 OPTIONS = [
     {"category": "flight", "label": "机票偏好", "icon": "✈️", "items": [

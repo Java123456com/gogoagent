@@ -7,7 +7,6 @@ from backend.services.order_service import travel_order_service
 from ._common import current_user_id, tool
 from .conflict import build_conflict_report
 
-
 _ACTIVE_ORDER_STATUSES = {"DRAFT", "SUBMITTED", "APPROVED"}
 _BLOCKING_CONFLICTS = {"HIGH", "MEDIUM"}
 

@@ -76,7 +76,7 @@ class TuniuCliCandidateSearchProvider:
                     execute_shell_command,
                     {"command": command, "timeout_seconds": 180, "user_id": user_id},
                 )
-            except Exception as exc:  # noqa: BLE001 - provider failures keep old candidates
+            except Exception as exc:
                 result = {"ok": False, "error": str(exc)}
             tool_result_side_effects.process(
                 "execute_shell_command",
@@ -289,7 +289,7 @@ class FlightManagerCandidateSearchProvider:
                 raw = response.json()
                 calls.append({"provider": self.name, "kind": "flight", "ok": True})
                 _merge_normalized(candidates, travel_data_normalizer.normalize(raw), direction)
-            except Exception as exc:  # noqa: BLE001 - one provider must not break planning
+            except Exception as exc:
                 calls.append({"provider": self.name, "kind": "flight", "ok": False,
                               "error": str(exc)})
         return _provider_result(self.name, calls, candidates)
@@ -351,7 +351,7 @@ class MultiSourceCandidateSearchProvider:
             for future, provider_name in futures.items():
                 try:
                     results.append(future.result())
-                except Exception as exc:  # noqa: BLE001 - isolate each external provider
+                except Exception as exc:
                     results.append(_unavailable(provider_name, f"Provider 执行失败: {exc}"))
         candidates = _empty_candidates()
         calls: list[dict[str, Any]] = []
@@ -372,7 +372,7 @@ def _shell(user_id: str, command: str) -> Any:
             execute_shell_command,
             {"command": command, "timeout_seconds": 180, "user_id": user_id},
         )
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         return {"ok": False, "error": str(exc)}
 
 

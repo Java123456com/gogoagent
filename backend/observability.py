@@ -35,7 +35,7 @@ def record_event(event: str, **fields: Any) -> dict[str, Any]:
         cleaned = sanitize_sensitive(payload)
         logger.info("agent_observability=%s", json.dumps(cleaned, ensure_ascii=False, default=str))
         return cleaned
-    except Exception:  # noqa: BLE001 - telemetry cannot block user execution
+    except Exception:
         return {"event": event}
 
 

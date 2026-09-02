@@ -6,15 +6,14 @@ Java 版用 DashScope Embedding + InMemoryStore 做 Top-2 检索；本实现保�
 """
 from __future__ import annotations
 
+import itertools
 import math
-import re
-from typing import Optional
 
+from backend.config import get_settings
+from backend.infrastructure.embedding import DashScopeEmbedding, DashScopeEmbeddingError
 from backend.intent.category import IntentCategory
 from backend.intent.result import Confidence, IntentRecognitionResult, Source
 from backend.intent.seed import SEED_EXAMPLES
-from backend.config import get_settings
-from backend.infrastructure.embedding import DashScopeEmbedding, DashScopeEmbeddingError
 
 DEFAULT_SCORE_THRESHOLD = 0.75
 DEFAULT_SCORE_MARGIN = 0.05
@@ -32,7 +31,7 @@ def _embed(text: str, dim: int = _VECTOR_DIM) -> list[float]:
         if ch.isspace():
             continue
         tokens.append(ch)
-    tokens += [a + b for a, b in zip(tokens, tokens[1:])]
+    tokens += [a + b for a, b in itertools.pairwise(tokens)]
     if not tokens:
         return vec
     for tok in tokens:

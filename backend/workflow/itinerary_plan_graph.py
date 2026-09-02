@@ -329,7 +329,7 @@ def _load_constraints(state: PlanExecutionState) -> PlanExecutionState:
     if policy_payload is None:
         try:
             policy_payload = travel_policy_service.get_policy(user_id, destination)
-        except Exception:  # noqa: BLE001 - optional policy lookup must not stop planning
+        except Exception:
             policy_payload = None
     weather_summary = state.get("weather_summary")
     if not weather_summary:
@@ -348,7 +348,7 @@ def _load_constraints(state: PlanExecutionState) -> PlanExecutionState:
                 if isinstance(weather, dict)
                 else str(weather or "")
             )
-        except Exception:  # noqa: BLE001 - optional source degrades independently
+        except Exception:
             weather_summary = ""
     plan_notebook.update_task(str(state.get("session_id") or "default"), 0, "done")
     updates = {

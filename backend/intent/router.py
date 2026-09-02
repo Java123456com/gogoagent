@@ -7,10 +7,9 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Optional
 
 from backend.intent.result import IntentRecognitionResult
-from backend.intent.rule_matcher import IntentRuleMatcher, STRONG_CONJUNCTIONS, Verdict
+from backend.intent.rule_matcher import STRONG_CONJUNCTIONS, IntentRuleMatcher, Verdict
 from backend.intent.vector_matcher import IntentVectorMatcher
 
 logger = logging.getLogger(__name__)

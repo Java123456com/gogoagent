@@ -2,9 +2,9 @@ from backend.agents.base import BaseSubAgent
 from backend.infrastructure.llm import stable_model
 from backend.rag.knowledge import travel_knowledge
 from backend.services.policy_service import travel_policy_service
+from backend.tools.knowledge import tools as knowledge_tools
 from backend.tools.live import tools as live_tools
 from backend.tools.policy import tools as policy_tools
-from backend.tools.knowledge import tools as knowledge_tools
 
 
 class InfoAgent(BaseSubAgent):

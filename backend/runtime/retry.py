@@ -77,7 +77,7 @@ def call_sync(fn: Callable[[], T], timeout: float | None) -> T:
     def run() -> None:
         try:
             result.append((True, context.run(fn)))
-        except BaseException as exc:  # noqa: BLE001 - preserve original exception type
+        except BaseException as exc:
             result.append((False, exc))
 
     worker = threading.Thread(target=run, name="gogo-tool-call", daemon=True)

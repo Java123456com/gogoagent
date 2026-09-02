@@ -31,7 +31,7 @@ class _MemoryStore:
             try:
                 self._redis.set(key, json.dumps(value, ensure_ascii=False, default=str))
                 return
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         with self._lock:
             self._data[key] = value
@@ -41,7 +41,7 @@ class _MemoryStore:
             try:
                 value = self._redis.get(key)
                 return json.loads(value) if value is not None else None
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         with self._lock:
             return self._data.get(key)
@@ -51,7 +51,7 @@ class _MemoryStore:
             try:
                 self._redis.delete(key)
                 return
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         with self._lock:
             self._data.pop(key, None)
@@ -61,7 +61,7 @@ class _MemoryStore:
             try:
                 self._redis.hset(key, field, json.dumps(value, ensure_ascii=False, default=str))
                 return
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         with self._lock:
             bucket = self._data.setdefault(key, {})
@@ -75,7 +75,7 @@ class _MemoryStore:
             try:
                 value = self._redis.hget(key, field)
                 return json.loads(value) if value is not None else None
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         with self._lock:
             bucket = self._data.get(key, {})
@@ -85,7 +85,7 @@ class _MemoryStore:
         if self._redis:
             try:
                 return {str(field): json.loads(value) for field, value in self._redis.hgetall(key).items()}
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         with self._lock:
             bucket = self._data.get(key, {})
@@ -95,7 +95,7 @@ class _MemoryStore:
         if self._redis:
             try:
                 self._redis.expire(key, seconds)
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
 
 
@@ -237,7 +237,7 @@ class SessionExecutionFence(_MemoryStore):
                 generation = int(self._redis.incr(key))
                 self._redis.expire(key, max(60, int(get_settings().session_fence_ttl_seconds)))
                 return generation
-            except Exception:  # noqa: BLE001, S110 - development fallback
+            except Exception:  # noqa: S110 - development fallback
                 pass
         with self._generation_lock:
             generation = self._generations.get(key, 0) + 1
@@ -249,7 +249,7 @@ class SessionExecutionFence(_MemoryStore):
         if self._redis:
             try:
                 return int(self._redis.get(key) or 0)
-            except Exception:  # noqa: BLE001, S110 - development fallback
+            except Exception:  # noqa: S110 - development fallback
                 pass
         with self._generation_lock:
             return self._generations.get(key, 0)
@@ -305,7 +305,7 @@ class CircuitBreakerStore(_MemoryStore):
                     get_settings().circuit_breaker_state_ttl_seconds,
                 )
                 return value
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         with self._lock:
             self._failures[tool_name] = self._failures.get(tool_name, 0) + 1
@@ -315,7 +315,7 @@ class CircuitBreakerStore(_MemoryStore):
         if self._redis:
             try:
                 return int(self._redis.get(self._fail_key(tool_name)) or 0)
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         with self._lock:
             return self._failures.get(tool_name, 0)
@@ -327,7 +327,7 @@ class CircuitBreakerStore(_MemoryStore):
         if self._redis:
             try:
                 self._redis.delete(self._fail_key(tool_name))
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         with self._lock:
             self._failures.pop(tool_name, None)
@@ -345,7 +345,7 @@ class CircuitBreakerStore(_MemoryStore):
                     self._gen_key(tool_name), settings.circuit_breaker_state_ttl_seconds,
                 )
                 generation = int(pipeline.execute()[0])
-            except Exception:  # noqa: BLE001
+            except Exception:
                 generation = None
         with self._lock:
             if generation is None:
@@ -358,7 +358,7 @@ class CircuitBreakerStore(_MemoryStore):
         if self._redis:
             try:
                 return bool(self._redis.hexists(self._gen_key(tool_name), "at"))
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         with self._lock:
             return tool_name in self._opened_at
@@ -367,7 +367,7 @@ class CircuitBreakerStore(_MemoryStore):
         if self._redis:
             try:
                 self._redis.delete(self._gen_key(tool_name))
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         with self._lock:
             self._generation.pop(tool_name, None)
@@ -377,7 +377,7 @@ class CircuitBreakerStore(_MemoryStore):
         if self._redis:
             try:
                 return int(self._redis.hget(self._gen_key(tool_name), "n") or 0)
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         with self._lock:
             return self._generation.get(tool_name, 0)
@@ -391,7 +391,7 @@ class CircuitBreakerStore(_MemoryStore):
             try:
                 value = self._redis.hget(self._gen_key(tool_name), "at")
                 opened_at = float(value) if value is not None else None
-            except Exception:  # noqa: BLE001
+            except Exception:
                 opened_at = None
         if opened_at is None:
             with self._lock:
@@ -413,7 +413,7 @@ class CircuitBreakerStore(_MemoryStore):
         if self._redis:
             try:
                 return token if self._redis.set(key, token, nx=True, ex=ttl) else None
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         now = time.time()
         with self._lock:
@@ -437,7 +437,7 @@ class CircuitBreakerStore(_MemoryStore):
                     )
                 elif self._redis.get(key) == token:
                     self._redis.delete(key)
-            except Exception:  # noqa: BLE001, S110 - Redis outage falls back locally
+            except Exception:  # noqa: S110 - Redis outage falls back locally
                 pass
         with self._lock:
             current = self._probes.get(tool_name)

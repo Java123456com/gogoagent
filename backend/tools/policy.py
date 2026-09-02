@@ -1,6 +1,6 @@
-import json
-from ._common import current_user_id, tool
 from backend.services.policy_service import travel_policy_service
+
+from ._common import current_user_id, tool
 
 
 @tool

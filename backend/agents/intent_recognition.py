@@ -1,11 +1,12 @@
 import json
 import re
+
 from backend.agents.base import text_agent
-from backend.intent.category import IntentCategory
-from backend.intent.router import intent_router
-from backend.intent.result import Confidence, IntentRecognitionResult, Source
-from backend.intent.rule_matcher import IntentRuleMatcher, Verdict
 from backend.infrastructure.llm import llm_enabled
+from backend.intent.category import IntentCategory
+from backend.intent.result import Confidence
+from backend.intent.router import intent_router
+from backend.intent.rule_matcher import IntentRuleMatcher, Verdict
 
 
 class IntentRecognitionAgent:

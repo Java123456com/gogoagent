@@ -82,17 +82,17 @@ def _worker_main(agent_name: str, requests, responses, events) -> None:
                 with bind_event_sink(sink), bind_context_payload(envelope.get("context")):
                     result = agent.invoke(state)
                 responses.put({"request_id": request_id, "ok": True, "result": result})
-            except BaseException as exc:  # noqa: BLE001 - worker must isolate Agent failures
+            except BaseException as exc:
                 responses.put({
                     "request_id": request_id, "ok": False,
                     "error_type": type(exc).__name__, "error": str(exc),
                 })
-    except BaseException as exc:  # noqa: BLE001 - startup failure must be reported to parent
+    except BaseException as exc:
         # Startup failures have no request id; the parent observes process exit.
         try:
             responses.put({"request_id": None, "ok": False,
                            "error_type": type(exc).__name__, "error": str(exc)})
-        except Exception:  # noqa: BLE001,S110 - reporting is best effort
+        except Exception:  # noqa: S110 - reporting is best effort
             pass
 
 
@@ -253,7 +253,7 @@ class ProcessSubAgentExecutor:
                 try:
                     channel.close()
                     channel.join_thread()
-                except Exception:  # noqa: BLE001,S110 - best-effort startup cleanup
+                except Exception:  # noqa: S110 - best-effort startup cleanup
                     pass
             raise AgentWorkerCrashed(f"{agent_name} Worker 启动失败或超时")
         worker = _Worker(agent_name, process, requests, responses, events, restart_times)
@@ -279,7 +279,7 @@ class ProcessSubAgentExecutor:
             try:
                 worker.requests.put(None)
                 worker.process.join(max(0.1, float(get_settings().subagent_worker_shutdown_grace_seconds)))
-            except Exception:  # noqa: BLE001,S110 - best-effort shutdown
+            except Exception:  # noqa: S110 - best-effort shutdown
                 pass
             if worker.process.is_alive():
                 self._safe_terminate(worker.process)
@@ -287,7 +287,7 @@ class ProcessSubAgentExecutor:
             try:
                 channel.close()
                 channel.join_thread()
-            except Exception:  # noqa: BLE001,S110 - best-effort shutdown
+            except Exception:  # noqa: S110 - best-effort shutdown
                 pass
 
     @staticmethod
@@ -295,7 +295,7 @@ class ProcessSubAgentExecutor:
         try:
             process.terminate()
             process.join(1.0)
-        except Exception:  # noqa: BLE001,S110 - best-effort process cleanup
+        except Exception:  # noqa: S110 - best-effort process cleanup
             pass
 
     @staticmethod

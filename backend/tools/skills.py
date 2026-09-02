@@ -14,9 +14,9 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from backend.observability import record_event
 from backend.services.api_key_service import api_key_service
 from backend.services.rgh_isolation import rgh_isolation
-from backend.observability import record_event
 
 from ._common import current_user_id, tool
 

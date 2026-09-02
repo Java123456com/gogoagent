@@ -1,5 +1,6 @@
-from ._common import current_user_id, tool
 from backend.infrastructure.repositories import user_repository
+
+from ._common import current_user_id, tool
 
 
 @tool

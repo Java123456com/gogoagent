@@ -5,13 +5,13 @@ from backend.intent.rule_matcher import IntentRuleMatcher
 from backend.intent.vector_matcher import IntentVectorMatcher
 
 __all__ = [
-    "IntentCategory",
     "Confidence",
+    "IntentCategory",
     "IntentItem",
     "IntentRecognitionResult",
-    "Source",
     "IntentRecognitionRouter",
     "IntentRuleMatcher",
     "IntentVectorMatcher",
+    "Source",
     "intent_router",
 ]

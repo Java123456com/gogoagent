@@ -9,7 +9,6 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 from enum import Enum
-from typing import Optional
 
 from backend.intent.category import IntentCategory
 from backend.intent.result import Confidence, IntentRecognitionResult, Source
@@ -24,19 +23,19 @@ class Verdict(Enum):
 @dataclass
 class Outcome:
     verdict: Verdict
-    result: Optional[IntentRecognitionResult] = None
+    result: IntentRecognitionResult | None = None
     ambiguous_categories: list[IntentCategory] | None = None
 
     @classmethod
-    def hit(cls, result: IntentRecognitionResult) -> "Outcome":
+    def hit(cls, result: IntentRecognitionResult) -> Outcome:
         return cls(Verdict.HIT, result=result)
 
     @classmethod
-    def ambiguous(cls, categories: list[IntentCategory]) -> "Outcome":
+    def ambiguous(cls, categories: list[IntentCategory]) -> Outcome:
         return cls(Verdict.AMBIGUOUS, ambiguous_categories=categories)
 
     @classmethod
-    def miss(cls) -> "Outcome":
+    def miss(cls) -> Outcome:
         return cls(Verdict.MISS)
 
 

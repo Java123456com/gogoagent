@@ -2,6 +2,7 @@ from uuid import uuid4
 
 from langchain_core.messages import HumanMessage
 
+from backend.agents.base import BaseSubAgent
 from backend.infrastructure.bootstrap import bootstrap
 from backend.memory.context import (
     ContextCompressionConfig,
@@ -10,7 +11,6 @@ from backend.memory.context import (
 )
 from backend.memory.long_term import LongTermMemory
 from backend.memory.store import PersistentSessionStore
-from backend.agents.base import BaseSubAgent
 
 
 def test_context_hook_keeps_recent_messages_and_offloads_large_payload():

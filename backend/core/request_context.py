@@ -7,7 +7,6 @@ from contextvars import ContextVar, Token
 from dataclasses import dataclass, replace
 from typing import Any
 
-
 _UNSET = object()
 
 
@@ -27,7 +26,7 @@ class AgentRequestContext:
                request_id: str | None | object = _UNSET,
                deadline_at: float | None | object = _UNSET,
                tool_call_id: str | None | object = _UNSET,
-               idempotency_key: str | None | object = _UNSET) -> "AgentRequestContext":
+               idempotency_key: str | None | object = _UNSET) -> AgentRequestContext:
         """Create a child execution context without changing its identity.
 
         ``user_id`` and ``session_id`` deliberately have no override arguments:
@@ -62,7 +61,7 @@ class AgentRequestContext:
         }
 
     @classmethod
-    def from_payload(cls, payload: Mapping[str, Any]) -> "AgentRequestContext":
+    def from_payload(cls, payload: Mapping[str, Any]) -> AgentRequestContext:
         """Restore a context envelope received from an internal worker queue."""
         return cls(
             user_id=str(payload.get("user_id") or ""),

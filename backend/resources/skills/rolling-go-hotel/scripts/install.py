@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
+import json
 import os
-import sys
 import platform
 import subprocess
+import sys
 import urllib.request
-import json
-import shutil
+
 
 def run_command(args):
     """Run a system command and return exit code and output."""
     try:
-        result = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        result = subprocess.run(args, capture_output=True, text=True, check=False)
         return result.returncode, result.stdout, result.stderr
     except Exception as e:
         return -1, "", str(e)
@@ -22,7 +22,7 @@ def install_via_npm():
     
     # Try global installation
     print("Attempting to install @rollinggo/hotel globally via npm...")
-    code, stdout, stderr = run_command([npm_cmd, "install", "-g", "@rollinggo/hotel@latest"])
+    code, _stdout, stderr = run_command([npm_cmd, "install", "-g", "@rollinggo/hotel@latest"])
     if code == 0:
         print("✅ Successfully installed @rollinggo/hotel globally via npm!")
         return True
@@ -42,9 +42,8 @@ def download_binary(url, dest_path):
     )
     
     try:
-        with urllib.request.urlopen(req) as response:
-            with open(dest_path, 'wb') as out_file:
-                shutil_copy(response, out_file)
+        with urllib.request.urlopen(req) as response, open(dest_path, 'wb') as out_file:
+            shutil_copy(response, out_file)
         print("✅ Download completed successfully!")
         return True
     except Exception as e:
@@ -99,7 +98,7 @@ def main():
 
     # 2. Standalone Binary Fallback
     system = platform.system().lower()
-    machine = platform.machine().lower()
+    platform.machine().lower()
     
     print(f"Detected System: {platform.system()} ({platform.machine()})")
     

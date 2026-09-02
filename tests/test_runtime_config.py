@@ -1,6 +1,7 @@
+from sqlalchemy.exc import SQLAlchemyError
+
 from backend.config.settings import Settings
 from backend.memory.store import InMemorySessionStore, PersistentSessionStore
-from sqlalchemy.exc import SQLAlchemyError
 
 
 def test_gogo_database_url_alias_is_supported(monkeypatch):

@@ -198,7 +198,7 @@ class ResilientToolHook:
         row = tool_execution_repository.create_in_progress(
             idempotency_key=key, request_id=context.request_id, user_id=context.user_id,
             agent_name=context.agent_name, tool_name=name, arguments_hash=arg_hash,
-            expires_at=datetime.now() + timedelta(hours=24),  # noqa: DTZ005 - DB uses local naive timestamps
+            expires_at=datetime.now() + timedelta(hours=24),
         )
         # A duplicate create means another worker won the database race.
         return key, arg_hash, row is not None
@@ -232,7 +232,7 @@ class ResilientToolHook:
             except TimeoutError as exc:
                 last = ToolDeadlineExceeded(str(exc))
                 emit_tool_timeout(self.agent_name, name, call_id, attempt, timeout)
-            except Exception as exc:  # noqa: BLE001 - classify below
+            except Exception as exc:
                 last = exc
             if attempt >= policy.max_attempts or not self._retryable(policy, last):
                 break
@@ -259,7 +259,7 @@ class ResilientToolHook:
             except TimeoutError as exc:
                 last = ToolDeadlineExceeded(str(exc))
                 emit_tool_timeout(self.agent_name, name, call_id, attempt, timeout)
-            except Exception as exc:  # noqa: BLE001
+            except Exception as exc:
                 last = exc
             if attempt >= policy.max_attempts or not self._retryable(policy, last):
                 break

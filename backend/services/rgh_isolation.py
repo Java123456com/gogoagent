@@ -121,7 +121,7 @@ class RghTokenStore:
 
             self._redis = redis.from_url(url, decode_responses=True)
             return self._redis
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             logger.warning("RollingGo Token Redis 初始化失败: %s", exc)
             return None
 
@@ -135,12 +135,12 @@ class RghTokenStore:
                 return None
             try:
                 return decrypt_api_key(stored)
-            except Exception:  # noqa: BLE001 - corrupted/rotated token degrades to absent
+            except Exception:
                 if str(stored).lstrip().startswith("{"):
                     self.save(user_id, stored)
                     return stored
                 return None
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             logger.warning("RollingGo Token Redis 读取失败: %s", exc)
             return None
 
@@ -154,7 +154,7 @@ class RghTokenStore:
                 get_settings().rgh_token_ttl_seconds,
                 encrypt_api_key(token),
             )
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             logger.warning("RollingGo Token Redis 保存失败: %s", exc)
 
     def delete(self, user_id: str) -> None:
@@ -162,7 +162,7 @@ class RghTokenStore:
         if client is not None:
             try:
                 client.delete(self.PREFIX + user_id)
-            except Exception as exc:  # noqa: BLE001
+            except Exception as exc:
                 logger.warning("RollingGo Token Redis 删除失败: %s", exc)
 
 

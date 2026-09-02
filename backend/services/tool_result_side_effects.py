@@ -15,7 +15,6 @@ from backend.services.booking_service import booking_service
 from backend.services.runtime_events import emit_event
 from backend.services.travel_data import travel_data_normalizer
 
-
 logger = logging.getLogger(__name__)
 
 

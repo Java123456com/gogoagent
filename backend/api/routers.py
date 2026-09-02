@@ -169,7 +169,7 @@ def _approval_view(record) -> dict[str, Any]:
     try:
         from backend.infrastructure.repositories import user_repository
         account = user_repository.find_by_id(record.user_id)
-    except Exception:  # noqa: BLE001 - view enrichment must not break approvals
+    except Exception:
         account = None
     return {
         "processInstanceId": record.process_instance_id,

@@ -30,7 +30,7 @@ from backend.infrastructure.db import get_session
 
 
 def _now() -> datetime:
-    return datetime.now()  # noqa: DTZ005 - existing schema stores local naive timestamps
+    return datetime.now()
 
 
 def _iso(dt: datetime | None) -> str | None:
@@ -523,7 +523,7 @@ class ToolExecutionRepository:
                 s.add(row)
                 s.commit()
                 return row
-            except Exception:  # noqa: BLE001 - duplicate key is a normal race
+            except Exception:
                 s.rollback()
                 return None
 
