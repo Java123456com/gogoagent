@@ -72,6 +72,8 @@ tests/             # 自动化测试
 
 ## 本地运行
 
+完整的软件安装、MySQL、Redis、MinIO 和旅行 Skill 配置见 [SETUP.md](SETUP.md)。
+
 ```powershell
 uv sync --python 3.11 --extra dev
 Copy-Item .env.example .env
