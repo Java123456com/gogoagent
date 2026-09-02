@@ -47,7 +47,7 @@ def _candidates():
     }
 
 
-def test_remediation_compiles_java_style_item_to_candidate_exclusion():
+def test_remediation_compiles_review_item_to_candidate_exclusion():
     itinerary = {
         "proposals": [
             {

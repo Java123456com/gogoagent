@@ -1,4 +1,4 @@
-"""轻量 LLM 服务（对应 Java ConversationTitleService / QuestionRecommendationService）。
+"""对话标题和推荐问题等轻量 LLM 服务。
 
 二者均为「单次 LLM 调用、无需工具、无多轮推理」的纯文本生成，不套 ReActAgent。
 """

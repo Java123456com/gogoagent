@@ -1,6 +1,6 @@
 """Local execution registry used by the interrupt endpoint.
 
-Java keeps a Caffeine entry for the live Agent and an execution registry for
+The runtime keeps a bounded entry for the live Agent and an execution registry for
 cooperative cancellation. Python cannot safely kill a thread running an HTTP
 request, so cancellation is cooperative: the request is marked immediately,
 and the completed graph result is discarded/annotated if the stop flag was set
@@ -32,7 +32,7 @@ class ExecutionHandle:
 class AgentExecutionRegistry:
     def __init__(self) -> None:
         # A Master Agent may have nested sub-agent execution under the same
-        # session. Keep every local handle, matching Java's session -> Set<Agent>
+        # session. Keep every local handle as a session -> Set<Agent> mapping.
         # registry rather than overwriting the previous one.
         self._handles: dict[str, dict[str, ExecutionHandle]] = {}
         self._lock = threading.RLock()

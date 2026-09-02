@@ -1,4 +1,4 @@
-"""运行时配置（对应 Java 的 application.yml / city-tier.yml / .env）。
+"""基于环境变量和 Pydantic Settings 的运行时配置。
 
 所有外部依赖（模型、数据库、第三方 API Key、MCP、熔断、意图向量阈值）都收敛到
 这一处，其余模块只读 ``get_settings()``，避免散落魔法值。默认值保证「无任何 API Key
@@ -21,14 +21,14 @@ class Settings(BaseSettings):
     gogo_use_llm: bool = False
     openai_api_key: str | None = None
     openai_base_url: str | None = None  # 例如 https://dashscope.aliyuncs.com/compatible-mode/v1
-    # 原 Java 的 agentscope.dashscope.api-key。可与 OPENAI_API_KEY 同时配置，
+    # DashScope API Key，可与 OPENAI_API_KEY 同时配置，
     # 百炼 provider 优先使用该值，模型 provider 仍可使用 OpenAI-compatible 配置。
     dashscope_api_key: str | None = None
     dashscope_cache_control: bool = True
     dashscope_embedding_enabled: bool = True
     dashscope_embedding_model: str = "text-embedding-v4"
     dashscope_embedding_dimensions: int = 1024
-    # 三种模型，对应 Java 的 strongModel / stableModel / strongModelWithThinking
+    # 按职责区分强模型、稳定模型和带推理的强模型。
     fast_model: str = "qwen3.6-flash"
     strong_model: str = "qwen3.7-max"
     stable_model: str = "glm-5.1"
@@ -186,7 +186,7 @@ class Settings(BaseSettings):
     )
     @classmethod
     def parse_list_env(cls, value):
-        """Accept both Pydantic JSON arrays and Java-style comma lists."""
+        """Accept both Pydantic JSON arrays and comma-separated lists."""
         if not isinstance(value, str):
             return value
         try:

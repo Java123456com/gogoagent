@@ -1,4 +1,4 @@
-"""SSE 流式推送（对应 Java ProgressNotifierHook + ChatSseNotifier 的事件协议）。
+"""面向前端时间线的 SSE 流式事件协议。
 
 支持事件：message / thinking / progress / travel_data / plan_update / plan_html /
 user_interaction / suggestions / agent-switch / booking_result / interrupted / done。
@@ -21,9 +21,9 @@ RAW_TEXT_EVENTS = frozenset({
 
 
 def sse(event: str, data: Any, *, raw: bool = False) -> str:
-    """Encode one SSE event using the Java frontend contract.
+    """Encode one SSE event using the frontend contract.
 
-    Spring sends text events as unquoted strings and structured events as JSON.
+    Text events remain unquoted strings; structured events are encoded as JSON.
     Splitting embedded newlines into multiple ``data:`` fields keeps the frame
     valid while allowing the browser parser to reconstruct the original text.
     """

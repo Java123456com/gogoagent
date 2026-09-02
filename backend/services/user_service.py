@@ -1,4 +1,4 @@
-"""用户档案服务（对应 Java UserInfoReadTools / UserInfoWriteTools 背后的 repository）。"""
+"""用户档案读写服务。"""
 from __future__ import annotations
 
 from typing import Any

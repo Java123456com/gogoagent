@@ -1,4 +1,4 @@
-"""Agent lifecycle hooks mirroring the Java AgentScope hook boundary."""
+"""Agent lifecycle hooks for context, persistence and observability."""
 
 from backend.hooks.context_hooks import (
     DynamicTimeInjectionHook,

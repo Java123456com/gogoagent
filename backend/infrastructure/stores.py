@@ -1,4 +1,4 @@
-"""进程内 KV 存储（对应 Java 的 Redis 用途：规划结果 / 搜索候选 / 会话 / 熔断）。
+"""用于规划结果、搜索候选、会话和熔断状态的 KV 存储。
 
 生产可替换为真实 Redis；这里用线程安全的进程内 dict 保证零依赖可运行，
 接口与 Redis 语义对齐（key 带用户隔离）。
@@ -259,7 +259,7 @@ class SessionExecutionFence(_MemoryStore):
 
 
 class ReviewResultStore:
-    """上一轮审核报告（对应 Java ReviewResultSessionStore）。"""
+    """上一轮审核报告的会话级存储。"""
 
     _suffix = ":review_result"
 
@@ -473,7 +473,7 @@ class CircuitBreakerStore(_MemoryStore):
             return group in self._open_groups
 
 
-# 进程级单例（等价于 Spring 单例 Bean）
+# 进程级单例
 itinerary_plan_store = ItineraryPlanStore()
 search_candidate_store = SearchCandidateStore()
 session_store = SessionStore()

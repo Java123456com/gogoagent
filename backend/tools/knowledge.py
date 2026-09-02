@@ -1,4 +1,4 @@
-"""Agent-callable wrappers for the three Java InfoAgent Knowledge beans."""
+"""Agent-callable wrappers for the three travel knowledge sources."""
 from __future__ import annotations
 
 from typing import Any

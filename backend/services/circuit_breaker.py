@@ -1,4 +1,4 @@
-"""工具级熔断（对应 Java ToolCircuitBreakerHook）。
+"""支持本地与 Redis 状态的工具级熔断器。
 
 三态：关闭(closed) / 打开(open) / 半开(half-open)；连续失败达阈值进入冷却期，
 冷却期按指数退避递增；也支持显式关闭整个工具组（如 TOOL_CIRCUIT_BREAKER_GROUP）。

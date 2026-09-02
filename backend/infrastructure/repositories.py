@@ -1,4 +1,4 @@
-"""仓储层（对应 Java business/*/repo + mapper）。
+"""基于 SQLAlchemy 的业务仓储层。
 
 用 SQLAlchemy 2.0 会话封装对 11 张表的访问，供 service 层与 tools 层复用。
 所有写操作由调用方决定是否 commit（service 层负责事务边界）。

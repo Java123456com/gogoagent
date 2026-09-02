@@ -12,7 +12,7 @@ def test_operating_topology_has_4_plus_1_plus_2_plus_2_roles():
     ]
 
 
-def test_model_profiles_preserve_java_role_assignment():
+def test_model_profiles_preserve_role_assignment():
     assert resolve_model_profile(ModelProfile.FAST).enable_thinking is False
     assert resolve_model_profile(ModelProfile.STABLE).enable_thinking is False
     assert resolve_model_profile(ModelProfile.STRONG).enable_thinking is False

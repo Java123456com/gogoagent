@@ -103,8 +103,6 @@ npm run build
 
 - `master`：面试展示与稳定版本。
 - `develop`：日常集成分支。
-- `feature/*`：按基础设施、鉴权、记忆与 RAG、Agent 编排、差旅业务、外部集成、前端和测试文档拆分的模块分支。
-
-更完整的设计、迁移映射和生产配置说明见 [README_PYTHON.md](README_PYTHON.md)、[MULTI_AGENT_EXECUTION_PLAN.md](MULTI_AGENT_EXECUTION_PLAN.md) 与 [PROJECT_COMPLETION_CONFIGURATION_CHECKLIST.md](PROJECT_COMPLETION_CONFIGURATION_CHECKLIST.md)。
+- `feature/*`：按基础设施、鉴权、记忆与 RAG、Agent 编排、差旅业务、外部集成、前端和测试拆分的模块分支。
 
 > 仓库不包含真实凭据。请复制 `.env.example` 创建本地 `.env`，不要提交 `.env`、运行目录、数据库文件或第三方 Token。

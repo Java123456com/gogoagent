@@ -1,4 +1,4 @@
-"""Context variables replacing the Java Reactor/ThreadLocal request context."""
+"""Request-scoped context variables propagated across Agent and Tool calls."""
 from __future__ import annotations
 
 from collections.abc import Iterator, Mapping

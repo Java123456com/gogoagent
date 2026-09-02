@@ -1,6 +1,6 @@
-"""提示词加载器（对应 Java PromptLoader）。
+"""支持片段引用和动态日期变量的提示词加载器。
 
-优先读取 Python 侧 bundled resources，再兼容旧的 Java ``src/main/resources/prompts``。
+优先读取项目内 bundled resources，并兼容可选的外部资源目录。
 提示词仍然是行为契约，缺失时直接抛错。
 """
 from __future__ import annotations
@@ -11,8 +11,7 @@ from functools import lru_cache
 from pathlib import Path
 
 _RESOURCE_ROOT = Path(__file__).resolve().parent / "resources"
-_LEGACY_RESOURCE_ROOT = Path(__file__).resolve().parents[2] / "src" / "main" / "resources"
-_PROMPT_DIRS = (_RESOURCE_ROOT / "prompts", _LEGACY_RESOURCE_ROOT / "prompts")
+_PROMPT_DIRS = (_RESOURCE_ROOT / "prompts",)
 _INCLUDE_PATTERN = re.compile(r"\{\{include:\s*([\w\-./]+)\s*}}")
 _MAX_INCLUDE_DEPTH = 5
 

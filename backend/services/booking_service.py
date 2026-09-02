@@ -1,4 +1,4 @@
-"""预订记录服务（对应 Java BookingRecord + BookingPersistenceHook 落库）。"""
+"""预订记录创建、查询和持久化服务。"""
 from __future__ import annotations
 
 from typing import Any

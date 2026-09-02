@@ -1,4 +1,4 @@
-"""MinIO adapter matching Java ``MinioConfig`` and ``PlanHtmlTools``."""
+"""MinIO adapter for generated itinerary HTML objects."""
 from __future__ import annotations
 
 from io import BytesIO

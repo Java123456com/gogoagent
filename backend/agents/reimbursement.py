@@ -1,5 +1,5 @@
 class ReimbursementAgent:
-    """Java build() currently returns null (A2A TODO); preserve that contract."""
+    """Reserved A2A reimbursement capability."""
     def build(self): return None
 
     def invoke(self, state):

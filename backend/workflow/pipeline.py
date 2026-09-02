@@ -46,7 +46,7 @@ def rewrite_node(state):
     if session_id:
         try:
             rows = chat_service.find_recent_messages(session_id, limit=11)
-            # Java persists the current user message before building rewrite
+            # Persist the current user message before building rewrite
             # input (limit + 1), but passes it only once to the agent.  Keep
             # the ten preceding records here because ``question`` is passed
             # separately below.
@@ -138,7 +138,7 @@ def master_dispatch_node(state):
     if state.get("session_id"):
         agent_session_store.set_active_agent(state["session_id"], "MasterAgent")
     question = state.get("original_question") or state.get("request", "")
-    # Java AgentPipelineService.buildMasterInput prepends both pipeline
+    # Prepend both pipeline
     # artifacts as SYSTEM messages before the original conversation.
     pipeline_messages = []
     if state.get("rewritten_question"):
@@ -160,7 +160,7 @@ def master_dispatch_node(state):
 
 
 def _extract_rewritten_question(value) -> str:
-    """Parse QueryRewritingAgent JSON output like Java's parseRewrittenQuestion."""
+    """Parse the structured QueryRewritingAgent JSON output."""
     if isinstance(value, dict):
         return str(value.get("rewritten_question") or value.get("rewrittenQuestion") or "").strip()
     text = str(value or "").strip()

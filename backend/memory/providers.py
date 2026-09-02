@@ -1,6 +1,6 @@
 """Long-term memory providers.
 
-The Java implementation delegates preference storage to AgentScope's
+The remote implementation delegates preference storage to Bailian's
 ``BailianLongTermMemory``.  Its 1.0.12 client uses the DashScope memory API
 with two fixed paths and a Bearer API key; this module mirrors those request
 models while keeping a local fallback available when the service is disabled.
@@ -102,7 +102,7 @@ class BailianLongTermMemoryProvider:
                     if node_id:
                         return str(node_id)
                 return str(data.get("requestId") or data.get("request_id") or data.get("id") or "remote")
-        # Java's BailianLongTermMemory.record returns void.  A successful
+        # Bailian's record endpoint returns no identifier. A successful
         # response without an id is still a remote write, so return a stable
         # sentinel and do not duplicate it in the local fallback store.
         return "remote"

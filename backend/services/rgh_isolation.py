@@ -1,4 +1,4 @@
-"""RollingGo OAuth workspace and token isolation, mirroring the Java hooks."""
+"""RollingGo OAuth workspace and token isolation hooks."""
 from __future__ import annotations
 
 import logging

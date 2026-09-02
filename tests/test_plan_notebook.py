@@ -2,7 +2,7 @@ from backend.services.plan_notebook import PlanNotebookService
 from backend.services.runtime_events import bind_event_sink
 
 
-def test_plan_notebook_emits_java_plan_update_contract_and_recovers_history():
+def test_plan_notebook_emits_plan_update_contract_and_recovers_history():
     notebook = PlanNotebookService()
     events = []
     with bind_event_sink(lambda name, data: events.append((name, data))):

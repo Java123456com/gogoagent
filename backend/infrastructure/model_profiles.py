@@ -1,6 +1,6 @@
 """Central model profiles used by the multi-agent runtime.
 
-The Java implementation assigns a profile per role instead of using another LLM
+The runtime assigns a profile per role instead of using another LLM
 call to select a model.  Keeping that policy as data makes the mapping auditable
 and prevents a low-risk role from accidentally inheriting a thinking model.
 """

@@ -70,7 +70,7 @@ def test_travel_data_normalizes_mcp_train_and_rolling_go_hotel():
     }
 
 
-def test_search_capture_uses_java_fields_merges_and_builds_candidates():
+def test_search_capture_uses_normalized_fields_and_builds_candidates():
     user_id = "capture-user"
     search_candidate_store.delete(search_candidate_store.key_of(user_id))
     outbound_command = (

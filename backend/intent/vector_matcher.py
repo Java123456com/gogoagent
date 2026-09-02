@@ -1,6 +1,6 @@
-"""L2 向量相似度匹配器（对应 Java IntentVectorMatcher）。
+"""L2 向量相似度匹配器。
 
-Java 版用 DashScope Embedding + InMemoryStore 做 Top-2 检索；本实现保留完全相同的
+支持 DashScope Embedding 与本地字符 n-gram 两种 Top-2 检索路径；二者共享
 命中/歧义判定逻辑（阈值 + margin），但 embedding 默认用「字符 n-gram 哈希」在本地
 零依赖计算，配置 ``GOGO_USE_LLM`` + 模型 Key 后自动切换为真实 Embedding。
 """

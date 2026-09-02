@@ -1,4 +1,4 @@
-"""Travel-order conflict checks with Java-compatible severity semantics."""
+"""Travel-order conflict checks with stable severity semantics."""
 
 from __future__ import annotations
 

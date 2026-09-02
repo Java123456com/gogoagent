@@ -1,4 +1,4 @@
-"""API 请求/响应 DTO（对应 Java controller/request + entity/vo）。"""
+"""API 请求和响应 DTO。"""
 from __future__ import annotations
 
 from typing import Any

@@ -1,4 +1,4 @@
-"""Bridge synchronous Agent execution and the Java-compatible HTTP SSE stream."""
+"""Bridge synchronous Agent execution and the frontend HTTP SSE stream."""
 from __future__ import annotations
 
 from collections.abc import Callable, Iterator

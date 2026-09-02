@@ -1,4 +1,4 @@
-"""数据库引擎与会话（对应 Java 的 MySQL + MyBatis-Plus）。
+"""基于 SQLAlchemy 的数据库引擎、会话和开发种子数据。
 
 默认使用 SQLite 零依赖运行；设置 ``GOGO_DATABASE_URL`` 可切换 MySQL/Postgres。
 首次启动自动建表并写入演示数据（等价于 schema.sql 的 INSERT 种子）。

@@ -30,14 +30,14 @@
 字段说明：
 
 - `intents`：识别出的意图列表。单意图时只有一项，`multi_intent` 为 `false`。
-- `target_agent`：必须是**目标子智能体在 Spring 容器中的 bean 名（camelCase）**，如 `itineraryManageAgent`、`itineraryPlanAgent`、`reimbursementAgent`、`infoAgent`、`masterAgent`。不要输出 PascalCase 的人类可读名。系统会直接通过 `context.getBean(target_agent, ReActAgent.class)` 查找并调用，命名必须严格匹配。
+- `target_agent`：必须是**目标子智能体在 Agent 注册表中的名称（camelCase）**，如 `itineraryManageAgent`、`itineraryPlanAgent`、`reimbursementAgent`、`infoAgent`、`masterAgent`。不要输出 PascalCase 的人类可读名；系统会直接按名称查找并调用，命名必须严格匹配。
 - `primary_intent`：当前最核心或最紧迫的意图。
 - `multi_intent`：是否包含多个意图。
 - `overall_reason`：整体判断理由，多意图时必须说明各意图之间的关系。
 
 ## 意图类别与目标子智能体映射
 
-> **`target_agent` 列就是 Spring bean 名（camelCase）**，请严格按此输出。系统不做任何大小写或命名转换。
+> **`target_agent` 列就是 Agent 注册名（camelCase）**，请严格按此输出。系统不做任何大小写或命名转换。
 
 | 意图类别 | 说明                       | target_agent（camelCase） | 典型触发词/句式 |
 |---|---|---|---|

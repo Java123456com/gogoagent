@@ -1,4 +1,4 @@
-"""Remote RAG providers used by the Java-compatible knowledge facade."""
+"""Remote RAG providers used by the travel knowledge facade."""
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -16,7 +16,7 @@ class BailianKnowledgeError(RuntimeError):
 class BailianKnowledgeProvider:
     """Adapter for AgentScope's ``BailianKnowledge`` integration.
 
-    Java AgentScope uses the official Alibaba Cloud SDK, which signs the
+    The official Alibaba Cloud SDK signs the
     request with ``accessKeyId``/``accessKeySecret`` and calls
     ``Client.retrieveWithOptions(workspaceId, RetrieveRequest, ...)``.  The
     Python adapter follows that contract.  ``sdk_client`` is injectable for

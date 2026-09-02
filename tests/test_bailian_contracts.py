@@ -53,7 +53,7 @@ def test_bailian_memory_matches_agentscope_paths_and_payloads():
     assert search_payload["topK"] == 5
 
 
-def test_bailian_rag_normalizes_java_data_nodes():
+def test_bailian_rag_normalizes_provider_data_nodes():
     result = _normalize_documents({
         "requestId": "req-1",
         "data": {"nodes": [{"text": "杭州西湖", "score": 0.91,
@@ -68,7 +68,7 @@ def test_bailian_rag_normalizes_java_data_nodes():
     }]
 
 
-def test_bailian_rag_calls_java_retrieve_shape_with_signed_client():
+def test_bailian_rag_calls_retrieve_shape_with_signed_client():
     calls = []
 
     class Client:
@@ -93,7 +93,7 @@ def test_bailian_rag_calls_java_retrieve_shape_with_signed_client():
     assert headers == {}
 
 
-def test_master_registers_only_java_subagents():
+def test_master_registers_only_business_subagents():
     names = {tool.name for tool in master_agent.tools}
     assert {"itinerary_manage_agent", "itinerary_plan_agent", "info_agent", "booking_agent"} <= names
     assert "itinerary_review_agent" not in names
