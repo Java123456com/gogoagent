@@ -1,4 +1,4 @@
-"""Normalize travel search outputs using the Java ``TravelDataNormalizer`` contract."""
+"""Normalize heterogeneous travel-provider search outputs."""
 from __future__ import annotations
 
 import json

@@ -1,4 +1,4 @@
-"""领域模型（对应 Java business/*/entity + schema.sql 的 11 张表）。
+"""企业差旅领域模型与数据库实体。
 
 使用 SQLAlchemy 2.0 声明式映射，字段与 schema.sql 一一对应；同时提供 ``as_dict()``
 便于 API 层返回，避免在路由里手写字段映射。

@@ -1,4 +1,4 @@
-"""鉴权服务（对应 Java Sa-Token + Redis 会话）。
+"""基于不透明 Token 与 Redis 兼容会话存储的鉴权服务。
 
 演示环境口令按 schema.sql 明文存储；生产应替换为 BCrypt。
 """

@@ -1,4 +1,4 @@
-"""Post-tool side effects matching Java search, booking, and progress Hooks."""
+"""Post-tool side effects for search, booking, and progress events."""
 
 from __future__ import annotations
 
@@ -190,7 +190,7 @@ def build_search_candidates(
     departure_date: str,
     return_date: str,
 ) -> dict[str, list[dict[str, Any]]] | None:
-    """Convert the five Java Redis fields into planner transport/hotel options."""
+    """Convert the five cached search fields into planner transport/hotel options."""
     entries = search_candidate_store.load_by_trip(
         user_id,
         origin,

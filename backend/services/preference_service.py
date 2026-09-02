@@ -1,6 +1,6 @@
-"""用户偏好服务（对应 Java PreferenceController + 百炼长期记忆）。
+"""用户偏好配置与长期记忆同步服务。
 
-选项结构保留原前端偏好页的配置项；存储用 user_preference 表（Java 已迁移百炼，此处保留兼容）。
+选项结构与前端偏好页保持一致；本地存储使用 user_preference 表，并可同步远程记忆。
 """
 from __future__ import annotations
 
@@ -54,7 +54,7 @@ class PreferenceService:
             except (TypeError, json.JSONDecodeError):
                 decoded[key] = value
 
-        # Java reads the authoritative profile from Bailian.  Keep the local
+        # Bailian can provide the authoritative profile. Keep the local
         # form mirror as a fallback when the provider is disabled/unavailable.
         memories = long_term_memory.retrieve(
             user_id,

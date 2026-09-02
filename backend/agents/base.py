@@ -120,13 +120,13 @@ class BaseSubAgent:
         state = apply_context_to_state(state, execution_context)
         session_id = state.get("session_id")
         if session_id and agent_name != "MasterAgent":
-            # Java ActiveAgentPersistenceHook records the last non-master
+            # Record the last non-master agent so interrupted work can resume
             # Agent at PreReasoning time, including stateful sub-agents.
             agent_session_store.set_active_agent(session_id, agent_name)
         state = self._restore_session(state)
         resume_messages = state.get("resume_messages")
         if resume_messages:
-            # Java ChatAgentExecutor.resume supplies a ToolResultBlock to the
+            # Resume supplies a ToolResult-like payload to the
             # same ReActAgent.  LangGraph has no mutable AgentScope instance,
             # so restore the equivalent message pair before invoking the graph.
             existing = list(state.get("messages") or [])
@@ -211,7 +211,7 @@ class BaseSubAgent:
         return f"{session_id}:{self.__class__.__name__}" if session_id else None
 
     def _restore_session(self, state: dict[str, Any]) -> dict[str, Any]:
-        """Restore the Java ``sessionId:agentName`` memory namespace."""
+        """Restore the ``sessionId:agentName`` memory namespace."""
         session_key = self._session_key(state)
         if not session_key:
             return dict(state)
@@ -295,7 +295,7 @@ def _message_text(message: Any) -> str:
 
 
 def _emit_reasoning_event(agent_name: str, graph_result: dict[str, Any]) -> None:
-    """Expose provider reasoning blocks using Java's ``thinking`` SSE shape.
+    """Expose provider reasoning blocks using the frontend ``thinking`` SSE shape.
 
     DashScope's OpenAI-compatible response has appeared as both
     ``reasoning_content`` and ``reasoningContent`` across SDK versions.  The

@@ -1,4 +1,4 @@
-"""Pure Python equivalents of the Java pre/post reasoning hooks.
+"""Pre/post reasoning hooks implemented with Python context managers.
 
 LangGraph does not expose AgentScope's exact event classes, so these hooks are
 small state transformations.  They are deliberately usable outside a graph,
@@ -50,7 +50,7 @@ class ToolResultCompressHook:
     def _clean(self, value: Any) -> Any:
         if isinstance(value, dict):
             # MCP responses sometimes carry identical content and
-            # structuredContent fields; retaining content matches Java hook.
+            # structuredContent fields; retain content for downstream tools.
             result = {key: self._clean(item) for key, item in value.items()
                       if key not in self.DROP_KEYS}
             if result.get("content") and isinstance(result.get("content"), (list, dict)):

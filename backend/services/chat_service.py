@@ -1,4 +1,4 @@
-"""对话历史服务（对应 Java ChatHistoryService）。
+"""对话、消息和标题持久化服务。
 
 负责 chat_conversation / chat_message 持久化与最近消息加载，供问题改写与前端历史展示。
 """

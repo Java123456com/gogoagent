@@ -1,9 +1,9 @@
-"""Destination live-information tools matching Java ``DestinationLiveTools``.
+"""Destination live-information tools for weather, news and visa queries.
 
 Weather uses the free ``wttr.in`` API for today and the next two days. A
 configured Weather MCP endpoint is selected for dates beyond that range. News
 uses NewsData.io when its key is configured. Orizn Visa remains an MCP tool and
-is launched through the configured stdio command, exactly like the Java bean.
+is launched through the configured stdio command.
 All remote failures become structured results so a live integration cannot
 break the rest of the travel workflow.
 """

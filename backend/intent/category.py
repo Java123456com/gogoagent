@@ -1,4 +1,4 @@
-"""意图分类枚举（对应 Java IntentCategory）。
+"""企业差旅意图分类枚举。
 
 枚举值与 ``intent-recognition-agent-system.md`` 中定义的意图类别一一对应，
 每种意图标注默认目标子智能体（供 MasterAgent 路由）。

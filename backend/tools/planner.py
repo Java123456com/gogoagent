@@ -1,4 +1,4 @@
-"""Deterministic itinerary planner equivalent to Java ``CandidateRanker``.
+"""Deterministic multi-objective itinerary planner.
 
 Search hooks provide normalized candidate lists.  The planner obtains
 candidate-level preference scores from the LLM-backed scoring service (with a
@@ -487,7 +487,7 @@ def plan_itinerary(
     repair_round: int = 0,
     user_id: str | None = None,
 ) -> dict:
-    """组合交通与酒店候选，按 Java 原版六维评分选择代表方案。"""
+    """组合交通与酒店候选，按六维评分选择代表方案。"""
     user_id = current_user_id(user_id)
     raw = search_candidate_store.load(user_id, origin, destination, departure_date, return_date)
     candidates = json.loads(raw) if isinstance(raw, str) else (raw or {})

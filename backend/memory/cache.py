@@ -1,4 +1,4 @@
-"""Bounded local caches corresponding to the Java Caffeine session cache."""
+"""Bounded local caches for active sessions and request-level data."""
 from __future__ import annotations
 
 import threading

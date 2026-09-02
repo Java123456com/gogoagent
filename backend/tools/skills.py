@@ -1,6 +1,6 @@
 """SkillBox-compatible tools for the Plan and Booking agents.
 
-The Java implementation exposes ``load_skill_through_path`` and a restricted
+The runtime exposes ``load_skill_through_path`` and a restricted
 ``execute_shell_command`` tool.  These synchronous LangChain tools preserve the
 same names and user-scoped credential injection while keeping command output
 bounded before it re-enters the model context.
@@ -44,7 +44,7 @@ def _safe_path(root: Path, relative: str) -> Path:
 
 @tool
 def load_skill_through_path(skill_id: str, path: str = "SKILL.md") -> dict[str, Any]:
-    """按需加载 Java SkillBox 风格的技能正文或 references 文档。"""
+    """按需加载技能正文或 references 文档。"""
     if not skill_id or not path:
         return {"ok": False, "error": "skill_id 和 path 不能为空"}
     try:

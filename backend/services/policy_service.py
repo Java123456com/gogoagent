@@ -1,4 +1,4 @@
-"""差旅政策服务（对应 Java TravelPolicyService + CabinRankUtil）。
+"""差旅政策查询与舱位合规判断服务。
 
 政策规则：4 职级区间 × 3 城市等级 = 12 条；`query_travel_policy` 与 `check_travel_policy`
 两个工具共用本服务。

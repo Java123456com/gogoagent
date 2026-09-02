@@ -158,7 +158,7 @@ def decide(approval_id: str, payload: ApprovalDecisionBody, user: dict = Depends
 
 
 def _approval_view(record) -> dict[str, Any]:
-    """Camel-case approval view matching Java AdminApprovalController."""
+    """Build the camel-case approval response consumed by the frontend."""
     form: Any = record.approval_form
     if isinstance(form, str):
         try:
@@ -297,7 +297,7 @@ def feedback(session_id: str, message_id: str, payload: dict, user: dict = Depen
 
 @router.post("/callback/dingtalk/approval")
 def dingtalk_approval_callback(payload: dict):
-    """DingTalk callback shared with the Java approval integration."""
+    """Receive the idempotent DingTalk approval callback."""
     instance_id = payload.get("processInstanceId") or payload.get("process_instance_id")
     if not instance_id:
         raise HTTPException(422, "缺少 processInstanceId")
@@ -305,7 +305,7 @@ def dingtalk_approval_callback(payload: dict):
     travel_order_service.decide_and_sync_order(
         instance_id, result.lower() == "agree", payload.get("remark"),
     )
-    # Java callback is intentionally idempotent and always acknowledges with
+    # The callback is intentionally idempotent and always acknowledges with
     # a plain success body, including already-processed instances.
     return "success"
 

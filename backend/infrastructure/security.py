@@ -88,7 +88,7 @@ def sanitize_sensitive(value: Any) -> Any:
 
 
 class SensitiveLoggingFilter(logging.Filter):
-    """Python equivalent of the Java Logback SensitiveMaskingConverter."""
+    """Recursively mask sensitive fields before logging or emitting events."""
 
     def filter(self, record: logging.LogRecord) -> bool:
         record.msg = mask_sensitive(str(record.msg))

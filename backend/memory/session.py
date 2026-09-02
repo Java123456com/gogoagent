@@ -1,4 +1,4 @@
-"""Agent session fields corresponding to Java's Redis session records."""
+"""Agent session fields persisted in Redis-compatible records."""
 
 from __future__ import annotations
 

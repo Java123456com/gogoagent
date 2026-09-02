@@ -1,6 +1,6 @@
 """Explicit Plan-and-Execute graph for itinerary planning.
 
-The Java agent combines ReAct, PlanNotebook, planner and review tools.  This
+The planning agent combines ReAct, PlanNotebook, planner and review tools. This
 graph keeps the same tool boundary but makes the durable stages, remediation
 limit, and recovery state visible to Python callers.
 """

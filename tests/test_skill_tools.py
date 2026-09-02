@@ -1,7 +1,7 @@
 from backend.tools.skills import execute_shell_command, load_skill_through_path
 
 
-def test_load_skill_through_path_reads_java_skill_resource():
+def test_load_skill_through_path_reads_bundled_skill_resource():
     result = load_skill_through_path.invoke({"skill_id": "tuniu-cli", "path": "SKILL.md"})
     assert result["ok"] is True
     assert "tuniu CLI" in result["content"]

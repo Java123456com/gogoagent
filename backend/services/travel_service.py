@@ -26,7 +26,7 @@ class TravelAgentService:
         self.store = store or PersistentSessionStore()
         self.memory_manager = memory_manager or LayeredContextManager(
             self.store, long_term_memory, ContextCompressionHook(),
-            # Java uses AGENT_CONTROL for LLM agents.  Deterministic mode has
+            # LLM agents use AGENT_CONTROL. Deterministic mode has
             # no model tool call, so it may prefetch preferences for parity of
             # the local demo experience.
             auto_retrieve_long_term=not llm_enabled(),
@@ -45,7 +45,7 @@ class TravelAgentService:
                 raise PermissionError("无权访问该会话")
             context_question = request
             if continuation and previous.get("original_question"):
-                # Java continuation calls the same agent with the persisted
+                # Continuation calls the same agent with the persisted
                 # conversation, so a short answer such as "上海" retains the
                 # original travel-application intent.
                 context_question = f"{previous['original_question']}\n用户补充：{request}"
@@ -98,7 +98,7 @@ class TravelAgentService:
             execution_registry.end(session_id, handle)
 
     def run_active(self, request: str, user_id: str, session_id: str) -> TravelAgentState:
-        """Continue the Java ``activeAgent`` on an exact continuation signal.
+        """Continue the active Agent on an exact continuation signal.
 
         This path is used by ``POST /chat/{sessionId}`` for short replies such
         as "确认" or "继续".  ``POST /chat/respond`` remains the explicit
@@ -119,7 +119,7 @@ class TravelAgentService:
 
         agent_name = agent_session_store.get_active_agent(session_id)
         if agent_name in {"QueryRewritingAgent", "IntentRecognitionAgent"}:
-            # ChatAgentExecutor.executePipeline mirrors these two Java cases:
+            # The execution pipeline handles two continuation cases:
             # a rewriting agent restarts the full pipeline; an intent agent
             # resumes at intent recognition and then dispatches MasterAgent.
             return self.run(
@@ -188,7 +188,7 @@ class TravelAgentService:
         """Persist the latest pre-invocation checkpoint when local cancellation arrives.
 
         LangGraph/tool execution can be interrupted between normal save points.
-        This mirrors Java's explicit save-on-interrupt behavior. A request
+        This uses explicit save-on-interrupt behavior. A request
         generation fence prevents an old callback from overwriting a newer
         conversation turn.
         """

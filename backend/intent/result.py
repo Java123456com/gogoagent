@@ -1,4 +1,4 @@
-"""三层意图识别统一结果（对应 Java IntentRecognitionResult）。
+"""三层意图识别的统一结果模型。
 
 无论 L1 规则、L2 向量还是 L3 LLM，最终都生成该结构，并输出与 LLM 同构的 JSON，
 下游 MasterAgent / 流水线零改动。

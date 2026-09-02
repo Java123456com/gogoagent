@@ -12,9 +12,7 @@ from backend.rag.providers import (
 )
 
 _RESOURCE_ROOT = Path(__file__).resolve().parents[1] / "resources"
-_LEGACY_RESOURCE_ROOT = Path(__file__).resolve().parents[2] / "src" / "main" / "resources"
-_JAVA_RESOURCE_ROOT = Path(__file__).resolve().parents[3] / "gogo-agent_java_version" / "src" / "main" / "resources" / "dataset"
-_DATASET_DIRS = (_RESOURCE_ROOT / "dataset", _LEGACY_RESOURCE_ROOT / "dataset")
+_DATASET_DIRS = (_RESOURCE_ROOT / "dataset",)
 _CITY_PATTERN = re.compile(
     r"(北京|上海|广州|深圳|成都|杭州|重庆|武汉|西安|苏州|天津|南京|长沙|郑州|东莞|"
     r"青岛|沈阳|宁波|昆明|厦门|合肥|佛山|无锡|哈尔滨|济南|福州|大连|贵阳|太原|"
@@ -65,10 +63,10 @@ class KeywordRetriever:
 
 
 class TravelKnowledgeBase:
-    """Three Java Knowledge beans exposed behind one provider-aware facade.
+    """Three travel knowledge sources exposed behind one provider-aware facade.
 
-    The Java attraction bean is Bailian-backed while policy and guideline
-    beans are local DOCX corpora.  The same split is kept here.
+    Attraction retrieval can use Bailian, while policy and guideline knowledge
+    are bundled local corpora.
     """
     def __init__(self):
         self.attraction_knowledge = KeywordRetriever("attractionKnowledge", ["tourist_attraction.xlsx"])
@@ -136,10 +134,8 @@ def _resolve_dataset_path(filename: str) -> Path:
     suffix = Path(filename).suffix.lower()
     if suffix in {".docx", ".xlsx"}:
         candidates.append(f"{Path(filename).stem}.md")
-    # Keep the original Java resource tree as an input source when the
-    # migrated Markdown copy is not present.
     for candidate in candidates:
-        for root in _DATASET_DIRS + (_JAVA_RESOURCE_ROOT,):
+        for root in _DATASET_DIRS:
             path = root / candidate
             if path.exists():
                 return path
@@ -147,7 +143,7 @@ def _resolve_dataset_path(filename: str) -> Path:
 
 
 def _read_dataset(path: Path) -> str:
-    """Read the small Java knowledge assets without requiring POI/openpyxl."""
+    """Read bundled knowledge assets without requiring POI/openpyxl."""
     if path.suffix in {".md", ".txt"}:
         return path.read_text(encoding="utf-8", errors="ignore")
     try:

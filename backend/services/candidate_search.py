@@ -323,7 +323,7 @@ class RollingGoCandidateSearchProvider:
 
 
 class MultiSourceCandidateSearchProvider:
-    """Provider registry equivalent to Java SkillBox discovery and routing."""
+    """Provider registry for Skill discovery and routing."""
 
     def __init__(self) -> None:
         self.providers: dict[str, CandidateSearchProvider] = {

@@ -1,8 +1,8 @@
-"""Java-equivalent itinerary review orchestration.
+"""Multi-agent itinerary review orchestration.
 
 The six objective dimensions are deterministic. Experience, resilience and
 preference are temporary LLM assessors; their results are fanned out and then
-arbitrated where Java ``ItineraryReviewTools`` does it.
+arbitrated before the final report is emitted.
 """
 
 from __future__ import annotations

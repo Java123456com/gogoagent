@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 
 class RedisInterruptBroadcast:
-    """Cluster-safe counterpart to Java's ``AgentInterruptBroadcast``.
+    """Cluster-safe Agent interruption broadcaster.
 
     ``local_interrupt`` is injectable for focused tests.  In production the
     default handler cancels local execution handles, clears local suspended
@@ -189,7 +189,7 @@ class RedisInterruptBroadcast:
         except (TypeError, ValueError):
             generation = None
         interrupted = execution_registry.interrupt(session_id, generation=generation)
-        # Mirrors Java cleanup. These operations are intentionally idempotent
+        # Cleanup operations are intentionally idempotent
         # because every subscribed node receives the same broadcast.
         agent_session_manager.remove(session_id)
         agent_session_store.clear_pending_tool(session_id)

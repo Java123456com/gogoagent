@@ -1,4 +1,4 @@
-"""审批服务（对应 Java ApprovalService + ApprovalRecordStatus）。"""
+"""差旅审批状态流转服务。"""
 from __future__ import annotations
 
 from backend.infrastructure.repositories import approval_repository

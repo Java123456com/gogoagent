@@ -27,7 +27,7 @@ def _plan():
     }
 
 
-def test_objective_engine_has_java_six_dimensions():
+def test_objective_engine_has_six_dimensions():
     result = objective_review({
         "origin": "上海", "destination": "杭州", "departure_date": "2099-07-15",
         "return_date": "2099-07-16", "approved_origin": "上海", "approved_destination": "杭州",

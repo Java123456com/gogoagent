@@ -15,8 +15,8 @@ def generate_expense_report(invoice_items: str, travel_order_id: str | None = No
 
 @tool
 def submit_reimbursement(report: str, user_id: str = "u_001") -> dict:
-    """提交报销单；保留 Java 当前 A2A 未实现语义。"""
-    return {"status": "NOT_IMPLEMENTED", "user_id": user_id, "report": report, "message": "ReimbursementAgent 在 Java 版本中仍为占位能力"}
+    """提交报销单；当前保留 A2A 预留能力。"""
+    return {"status": "NOT_IMPLEMENTED", "user_id": user_id, "report": report, "message": "ReimbursementAgent 尚未实现"}
 
 
 def tools(): return [ocr_invoice, generate_expense_report, submit_reimbursement]

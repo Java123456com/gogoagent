@@ -65,7 +65,7 @@ def test_planner_builds_representative_proposals():
         }
     )
     assert result["candidate_count"] == 1
-    # Java CandidateRanker merges identical representative picks and keeps
+    # Candidate ranking merges identical representative picks and keeps
     # their four labels on the single physical proposal.
     assert len(result["proposals"]) == 1
     assert result["proposals"][0]["tags"] == ["综合最佳", "时间最短", "价格最低", "最符合偏好"]
@@ -90,13 +90,13 @@ def test_graph_compiles_and_routes_rule_hit():
     assert state["final"]
 
 
-def test_active_agent_continuation_routes_like_java_pipeline():
+def test_active_agent_continuation_routes_through_pipeline():
     assert route_after_fast({"active_resume_agent": "QueryRewritingAgent"}) == "rewrite"
     assert route_after_fast({"active_resume_agent": "IntentRecognitionAgent"}) == "full_intent"
     assert route_after_fast({"continuation": True}) == "master_dispatch"
 
 
-def test_my_travel_view_helpers_match_java_shapes():
+def test_my_travel_view_helpers_match_api_shapes():
     assert _is_international("日本东京") is True
     assert _is_international("上海") is False
     assert _order_url("tuniu", "TN-1") == "https://www.tuniu.com/order/detail/TN-1"

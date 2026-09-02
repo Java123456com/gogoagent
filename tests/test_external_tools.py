@@ -15,7 +15,7 @@ class _Response:
         return self.payload
 
 
-def test_weather_parser_matches_java_shape(monkeypatch):
+def test_weather_parser_matches_provider_shape(monkeypatch):
     payload = {
         "current_condition": [
             {

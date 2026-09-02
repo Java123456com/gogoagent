@@ -1,4 +1,4 @@
-"""LLM 工厂（对应 Java 的 ModelConfig：strongModel / stableModel / strongModelWithThinking）。
+"""按 Agent 职责分级的 LLM 工厂。
 
 统一走 LangChain 的 ``ChatOpenAI``（DashScope 兼容 OpenAI 协议），三档模型只是不同
 model 名与 temperature；关闭 ``GOGO_USE_LLM`` 或未配置 Key 时 ``get_*_model`` 返回
@@ -46,13 +46,13 @@ def fast_model() -> BaseChatModel | None:
 
 @lru_cache
 def strong_model() -> BaseChatModel | None:
-    """强模型：编排决策、规划、预订（对应 Java strongModel）。"""
+    """强模型：编排决策、规划和预订。"""
     return _build(ModelProfile.STRONG)
 
 
 @lru_cache
 def stable_model() -> BaseChatModel | None:
-    """稳模型：信息查询、审核、意图兜底（对应 Java stableModel）。"""
+    """稳模型：信息查询、审核和意图兜底。"""
     return _build(ModelProfile.STABLE)
 
 

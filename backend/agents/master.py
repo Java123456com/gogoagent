@@ -45,7 +45,7 @@ def _subagent_tool(name, description, agent_name):
                 raise UserInteractionRequired(pending)
             return result.get("final", str(result))
         finally:
-            # Java's ActiveAgentPersistenceHook records the last non-master
+            # Record the last non-master agent for exact continuation routing.
             # ReAct agent and leaves it available for exact continuation
             # signals on the next chat turn.  The next ordinary request starts
             # a fresh pipeline and explicitly resets the router to MasterAgent.
@@ -60,7 +60,7 @@ class MasterAgent(BaseSubAgent):
     model_factory = staticmethod(strong_model)
     max_iterations = 15
     def __init__(self):
-        # Java MasterAgent 的 Toolkit 只注册这四个真实子 Agent。
+        # Master Toolkit 只注册四个可直接调度的业务子 Agent。
         # ItineraryReviewAgent 是已废弃的独立 Bean，ReimbursementAgent 的
         # build() 返回 null，因此二者不能被伪装成可调度的 Master 子 Agent。
         tools = interaction_tools() + memory_tools() + [
@@ -86,7 +86,7 @@ class MasterAgent(BaseSubAgent):
                 if current in {"policy_query", "attractions_query", "general_info"}:
                     agent_name = "InfoAgent"
                 elif current == "reimbursement":
-                    results.append("报销 Agent 在 Java 原版中尚未实现，当前不能执行发票识别或报销提交。")
+                    results.append("报销 Agent 尚未实现，当前不能执行发票识别或报销提交。")
                     continue
                 elif current == "booking":
                     agent_name = "BookingAgent"
@@ -109,7 +109,7 @@ class MasterAgent(BaseSubAgent):
         elif intent == "reimbursement" or any(x in request for x in ("报销", "发票", "报销单")):
             return {
                 **state,
-                "final": "报销 Agent 在 Java 原版中尚未实现，当前不能执行发票识别或报销提交。",
+                "final": "报销 Agent 尚未实现，当前不能执行发票识别或报销提交。",
                 "trace": [{"agent": "MasterAgent", "output": "ReimbursementAgent 为未实现占位"}],
             }
         elif intent in {

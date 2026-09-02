@@ -1,6 +1,6 @@
 """Continuation signals shared by chat routing and recommendation prompts.
 
-These values mirror Java ``ContinuationSignals.ALL``.  Matching is deliberately
+These values form the complete continuation-signal contract. Matching is deliberately
 exact after trimming/lower-casing; a sentence containing one of the words is a
 new request and must go through the normal pipeline.
 """

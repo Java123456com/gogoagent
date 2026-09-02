@@ -11,7 +11,7 @@ class DashScopeEmbeddingError(RuntimeError):
 class DashScopeEmbedding:
     """Minimal HTTP implementation of the DashScope embedding API.
 
-    The Java project uses ``DashScopeTextEmbedding`` with model
+    The remote provider uses the DashScope embedding model
     ``text-embedding-v4`` and 1024 dimensions. Keeping this adapter small lets
     the RAG and intent stores share the same provider without coupling either
     module to a specific SDK release.
