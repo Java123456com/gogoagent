@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+.pytest-*/
+.ruff_cache/
+*.db
+
+# Local configuration and runtime credentials
+.env
+.runtime/
+
+# Node / frontend build output
+node_modules/
+dist/
+
+# IDE and OS files
+.idea/
+.vscode/
+.DS_Store
+*.iml
+

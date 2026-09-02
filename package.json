@@ -1,0 +1,11 @@
+{
+  "name": "gogo-agent-project-skills",
+  "private": true,
+  "description": "Project-local CLI and MCP runtimes for gogo-agent",
+  "dependencies": {
+    "@fly-ai/flyai-cli": "1.0.16",
+    "@rollinggo/hotel": "1.2.18",
+    "orizn-visa-mcp": "1.3.1",
+    "tuniu-cli": "1.1.1"
+  }
+}
